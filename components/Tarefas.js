@@ -1,12 +1,17 @@
 import React, {useState, useEffect} from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList, KeyboardAvoidingView, Platform, Keyboard, Alert, AsyncStorage} from 'react-native';
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
+import { Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList, KeyboardAvoidingView, Platform, Keyboard, Alert, AsyncStorage, Switch} from 'react-native';
+import { AntDesign, MaterialIcons, MaterialCommunityIcons  } from '@expo/vector-icons';
 
 
 export default function App() {
   
   const [task, setTask] = useState(['Escola', 'Aulas de Inglês', 'Piscina'])
   const [newTask, setNewTask] = useState('')
+  const [finaliza, setFinaliza] = useState(true)
+  
+  const toggleFinaliza = (index) => {
+    setFinaliza(previousState => !previousState)
+  }
 
   async function addTask() {
     if (newTask === '') {
@@ -79,9 +84,14 @@ export default function App() {
             showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={styles.containerView}>
-                <Text style={styles.text}>{item}</Text>
                 <TouchableOpacity onPress={() => removeTask(item)}>
                   <MaterialIcons name="delete-forever" size={24} color="#F64C75" />
+                </TouchableOpacity>
+                <Text style={styles.text}>{item}</Text>
+                <TouchableOpacity
+                  onPress={() => setFinaliza(!finaliza)}
+                >
+                  <MaterialCommunityIcons name="checkbox-blank-outline" size={24} color="black" />
                 </TouchableOpacity>
               </View>
             )}
