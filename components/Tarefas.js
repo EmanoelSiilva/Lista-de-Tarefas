@@ -3,14 +3,16 @@ import { Text, View, StyleSheet, TouchableOpacity, TextInput, FlatList, Keyboard
 import { AntDesign, MaterialIcons, MaterialCommunityIcons  } from '@expo/vector-icons';
 
 
+
+
 export default function App() {
   
   const [task, setTask] = useState(['Escola', 'Aulas de Inglês', 'Piscina'])
   const [newTask, setNewTask] = useState('')
-  const [finaliza, setFinaliza] = useState(true)
+  const [finaliza, setFinaliza] = useState(false)
   
-  const toggleFinaliza = (index) => {
-    setFinaliza(previousState => !previousState)
+  const toggleFinaliza = () => {
+    setFinaliza(!finaliza)
   }
 
   async function addTask() {
@@ -88,11 +90,6 @@ export default function App() {
                   <MaterialIcons name="delete-forever" size={24} color="#F64C75" />
                 </TouchableOpacity>
                 <Text style={styles.text}>{item}</Text>
-                <TouchableOpacity
-                  onPress={() => setFinaliza(!finaliza)}
-                >
-                  <MaterialCommunityIcons name="checkbox-blank-outline" size={24} color="black" />
-                </TouchableOpacity>
               </View>
             )}
           />
